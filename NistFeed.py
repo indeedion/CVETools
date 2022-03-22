@@ -102,9 +102,9 @@ def getFile():
 
 FILE = getFile()
 
-def makeCVS(objects):
+def makeCSV(objects):
     file = open(OUT_FILE, 'a') 
-    file.write("CVE;BASE SCORE;DATE PUBLISHED;DESCRIPTION")
+    file.write("CVE;BASE SCORE;DATE PUBLISHED;DESCRIPTION\n")
     for obj in objects:
         desc = ""
         for d in obj.descriptions:
@@ -113,7 +113,8 @@ def makeCVS(objects):
             obj.ID + ";" + 
             obj.CvssV3.baseScore + ";" + 
             obj.publishedDate + ";" + 
-            desc
+            desc +
+            "\n"
             )
     
     file.close()
@@ -147,7 +148,7 @@ def main():
         CVEObjects.append(CVEObject(item))
  
     if args.csv == True:
-        makeCVS(CVEObjects)
+        makeCSV(CVEObjects)
     elif args.score is not None:
         printByScore(args.score, CVEObjects)
     else:
